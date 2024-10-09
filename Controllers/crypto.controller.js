@@ -46,20 +46,19 @@ exports.getCryptoPriceDeviation = async (req, res) => {
         .send(error(400, "Invalid or missing coin parameter"));
     }
 
-    // Fetch the last 100 records for the requested coin
     const cryptoData = await CryptoData.findOne({ coinName: coin });
 
     if (!cryptoData || cryptoData.pastPrice.length === 0) {
       return res
         .status(404)
-        .json({ error: "No price records found for the requested coin" });
+        .send(error(404, "No data found for the requested coin"));
     }
 
     // Get the last  prices from the pastPrice array, including the current price as well
     console.log(cryptoData.pastPrice);
     const priceHistory = cryptoData.pastPrice
-      .slice(DEVIATION_HISTORY_LENGTH)
-      .concat(cryptoData.price);
+      .slice(DEVIATION_HISTORY_LENGTH) //How many data points to include
+      .concat(cryptoData.price);//To include Current price 
 
     console.log(priceHistory);
 
@@ -78,13 +77,13 @@ exports.getCryptoPriceDeviation = async (req, res) => {
         .send(error(500, "Server error while calculating deviation"));
     }
 
-    // Check if the deviation is to small then return as it is
+    // Check if the deviation is too small then return as itis 
     deviation = standardDeviation > 0.01 ? parseFloat(standardDeviation.toFixed(2)) : standardDeviation; 
 
     // Return the standard deviation
     return res.status(200).send(
       success(200, {
-        deviation: deviation, // Round to 2 decimal places
+        deviation: deviation, 
       })
     );
   } catch (e) {

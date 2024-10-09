@@ -4,6 +4,8 @@ const morgan = require("morgan");// Package for Logging
 const cors = require("cors");// Package for CORS 
 const { startCronJob } = require('./Utils/cronJob'); // Cron Job Function
 const { coinIds } = require("./Constants/details");//To Add Constant Details
+const cryptoRouter = require("./Routes/crypto.router");
+
 
 const app = express();
 
@@ -19,13 +21,14 @@ app.use(cors({ credentials: true, origin }));
 app.use(morgan("common"));
 
 
-//Routers
-const cryptoRouter = require("./Routes/crypto.router");
-app.use("/api/v1", cryptoRouter);
 
 // Start the cron job
-startCronJob(coinIds); // Pass your coin IDs here
+startCronJob(coinIds); //coin IDs 
 
-// Routes for handling coin data can be added here
+// Routes for handling crupto data 
+app.get("/", (req, res) => {
+    res.status(200).send("Welcome to KoinX Crypto API");
+})
+app.use("/api/v1", cryptoRouter);
 
 module.exports = app; // Export the app instance
