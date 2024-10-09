@@ -19,7 +19,7 @@ const fetchCoinDetails = async (coinIds) => {
         return response.data; // Return the fetched data
     } catch (error) {
         console.error("Error fetching coin details from CoinGecko:", error);
-        throw error; // Rethrow the error to handle it further up the chain if necessary
+        throw error; 
     }
 };
 
