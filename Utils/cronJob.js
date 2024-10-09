@@ -1,4 +1,4 @@
-const CryptoData = require("../Models/CryptoData.model"); // Import your mongoose model
+const CryptoData = require("../Models/CryptoData.model"); // model
 const { fetchCoinDetails } = require("../Services/coinDetails.service");
 const { CRON_JOB_TIME } = require("../Constants/processVariables");
 
@@ -14,6 +14,8 @@ const getCryptoData = async (coinIds) => {
     try {
         // Use the fetchCoinDetails function to get data
         const cryptoDataArray = await fetchCoinDetails(coinIds);
+
+        console.log("Crypto data fetched:", cryptoDataArray);
 
         // Iterate through each coin's data and update MongoDB
         for (let coinData of cryptoDataArray) {
@@ -68,6 +70,7 @@ const startCronJob = async (Coinid) => {
     console.log("Crypto data fetched and processed");
 
     // Using setInterval to run the job every 2 hour
+    //NOTE : AS the Process is small and time span is large , time ellapsed probability is less, that's why we can use SetInterval. for more accurate time cron-job module can be helpful
     setInterval(async () => {
         console.log("Fetching crypto data...");
         await getCryptoData(Coinid);

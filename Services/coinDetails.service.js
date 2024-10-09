@@ -13,6 +13,7 @@ const fetchCoinDetails = async (coinIds) => {
                 vs_currency: "usd",
                 ids: coinIds.join(","), // Join the coin IDs for the API request
             },
+            
         });
 
         return response.data; // Return the fetched data

@@ -55,12 +55,10 @@ exports.getCryptoPriceDeviation = async (req, res) => {
     }
 
     // Get the last  prices from the pastPrice array, including the current price as well
-    console.log(cryptoData.pastPrice);
     const priceHistory = cryptoData.pastPrice
       .slice(DEVIATION_HISTORY_LENGTH) //How many data points to include
       .concat(cryptoData.price);//To include Current price 
 
-    console.log(priceHistory);
 
     if (priceHistory.length < 2) {
       return res
