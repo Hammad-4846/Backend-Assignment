@@ -1,3 +1,4 @@
+const { COIN_IDS } = require("../Constants/details");
 const { DEVIATION_HISTORY_LENGTH } = require("../Constants/processVariables");
 const CryptoData = require("../Models/CryptoData.model");
 const { calculateStandardDeviation } = require("../Utils/apiHelper");
@@ -7,7 +8,7 @@ exports.getCryptoStats = async (req, res) => {
   try {
     const { coin } = req.query;
 
-    if (!coin || !["bitcoin", "matic-network", "ethereum"].includes(coin)) {
+    if (!coin || !COIN_IDS.includes(coin)) {
       return res
         .status(400)
         .send(error(400, "Invalid or missing coin parameter"));
@@ -40,7 +41,7 @@ exports.getCryptoPriceDeviation = async (req, res) => {
   try {
     const { coin } = req.query;
 
-    if (!coin || !["bitcoin", "matic-network", "ethereum"].includes(coin)) {
+    if (!coin || !COIN_IDS.includes(coin)) {
       return res
         .status(400)
         .send(error(400, "Invalid or missing coin parameter"));

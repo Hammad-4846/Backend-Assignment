@@ -1,5 +1,5 @@
-const coinIds = ["bitcoin", "matic-network", "ethereum"];
+const COIN_IDS = ["bitcoin", "matic-network", "ethereum"];
 // const coinIds = [];
 
 
-module.exports = { coinIds };
+module.exports = { COIN_IDS };

@@ -3,7 +3,7 @@ const express = require("express");
 const morgan = require("morgan");// Package for Logging 
 const cors = require("cors");// Package for CORS 
 const { startCronJob } = require('./Utils/cronJob'); // Cron Job Function
-const { coinIds } = require("./Constants/details");//To Add Constant Details
+const { COIN_IDS } = require("./Constants/details");//To Add Constant Details
 const cryptoRouter = require("./Routes/crypto.router");
 
 
@@ -23,7 +23,7 @@ app.use(morgan("common"));
 
 
 // Start the cron job
-startCronJob(coinIds); //coin IDs 
+startCronJob(COIN_IDS); //coin IDs 
 
 // Routes for handling crupto data 
 app.get("/", (req, res) => {

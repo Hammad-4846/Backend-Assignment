@@ -15,8 +15,11 @@ const getCryptoData = async (coinIds) => {
         // Use the fetchCoinDetails function to get data
         const cryptoDataArray = await fetchCoinDetails(coinIds);
 
-        console.log("Crypto data fetched:", cryptoDataArray);
-
+        if (!cryptoDataArray.length) {
+            console.error("No data found for the requested coin.");
+            return;
+        }
+        
         // Iterate through each coin's data and update MongoDB
         for (let coinData of cryptoDataArray) {
             const {
